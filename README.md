@@ -9,21 +9,20 @@ Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://j
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
 ```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
+import networkx as nx
+import pandas as pd
+dfs = pd.read_excel("Twitter.xlsx", sheet_name = ["Elementos", "Perfil", "Conexoes", "Conexoes2"])
+node_data = dfs["Elementos"]
+edge_data = dfs["Perfil"]
+edge_data1 = dfs["Conexoes"]
+edge_data2 = dfs["Conexoes2"]
 
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](Exemplo_aplicado.ipynb) and ![Image](src)
+A = nx.from_pandas_edgelist(edge_data, source = 'Perfil1', target = 'Seguindo1')
+B = nx.from_pandas_edgelist(edge_data1, source = 'Seguindo', target = 'Recomendado')
+C = nx.from_pandas_edgelist(edge_data2, source = 'Recomendado1', target = 'Recomendado2')
+U = nx.compose(A, B)
+Z = nx.compose(U,C)
 ```
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
